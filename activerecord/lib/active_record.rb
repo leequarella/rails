@@ -91,6 +91,7 @@ module ActiveRecord
 
     autoload :Relation
     autoload :AssociationRelation
+    autoload :SplitAssociationRelation
     autoload :NullRelation
 
     autoload_under "relation" do

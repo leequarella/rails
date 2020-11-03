@@ -15,7 +15,13 @@ module ActiveRecord
     class << self
       def create(macro, name, scope, options, ar)
         reflection = reflection_class_for(macro).new(name, scope, options, ar)
-        options[:through] ? ThroughReflection.new(reflection) : reflection
+        if options[:through] && options[:split]
+          SplitThroughReflection.new(reflection)
+        elsif options[:through]
+          ThroughReflection.new(reflection)
+        else
+          reflection
+        end
       end
 
       def add_reflection(ar, name, reflection)
@@ -686,6 +692,7 @@ module ActiveRecord
       def has_one?; true; end
 
       def association_class
+        # TODO: split these joins too
         if options[:through]
           Associations::HasOneThroughAssociation
         else
@@ -996,6 +1003,12 @@ module ActiveRecord
           public_instance_methods
 
         delegate(*delegate_methods, to: :delegate_reflection)
+    end
+
+    class SplitThroughReflection < ThroughReflection
+      def association_class
+        Associations::HasManyThroughSplitAssociation
+      end
     end
 
     class PolymorphicReflection < AbstractReflection # :nodoc:

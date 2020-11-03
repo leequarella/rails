@@ -20,6 +20,7 @@ class Author < ActiveRecord::Base
       Rating.joins(:comment).merge(self)
     end
   end
+  has_many :split_comments, through: :posts, split: :true, source: :comments
   has_many :comments_containing_the_letter_e, through: :posts, source: :comments
   has_many :comments_with_order_and_conditions, -> { order("comments.body").where("comments.body like 'Thank%'") }, through: :posts, source: :comments
   has_many :comments_with_include, -> { includes(:post).where(posts: { type: "Post" }) }, through: :posts, source: :comments

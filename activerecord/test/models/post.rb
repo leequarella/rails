@@ -78,6 +78,7 @@ class Post < ActiveRecord::Base
     end
   end
 
+
   has_many :comments_with_extend, extend: NamedExtension, class_name: "Comment", foreign_key: "post_id" do
     def greeting
       "hello"
