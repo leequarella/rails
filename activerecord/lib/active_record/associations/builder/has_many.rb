@@ -11,6 +11,7 @@ module ActiveRecord::Associations::Builder # :nodoc:
       valid += [:as, :foreign_type] if options[:as]
       valid += [:through, :source, :source_type] if options[:through]
       valid += [:ensuring_owner_was] if options[:dependent] == :destroy_async
+      valid += [:split] if options[:split] && options[:through]
       valid
     end
 

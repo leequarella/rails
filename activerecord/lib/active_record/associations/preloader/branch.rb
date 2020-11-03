@@ -95,10 +95,18 @@ module ActiveRecord
           def preloader_for(reflection)
             reflection.check_preloadable!
 
-            if reflection.options[:through]
+            if reflection.options[:split]
+              SplitThroughAssociation
+            elsif reflection.options[:through]
               ThroughAssociation
             else
               Association
+            end
+          end
+
+          class SplitThroughAssociation < ThroughAssociation
+            def through_scope
+              through_reflection.klass.unscoped
             end
           end
       end

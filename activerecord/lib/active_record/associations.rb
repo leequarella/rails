@@ -287,12 +287,14 @@ module ActiveRecord
       autoload :BelongsToPolymorphicAssociation
       autoload :HasManyAssociation
       autoload :HasManyThroughAssociation
+      autoload :HasManyThroughSplitAssociation
       autoload :HasOneAssociation
       autoload :HasOneThroughAssociation
 
       autoload :Preloader
       autoload :JoinDependency
       autoload :AssociationScope
+      autoload :SplitAssociationScope
       autoload :AliasTracker
     end
 

@@ -110,6 +110,7 @@ class HasManyThroughAssociationsTest < ActiveRecord::TestCase
     Membership.create! club: club, member: Member.create!(name: "Aaron")
     Membership.create! club: club, member: Member.create!(name: "Bob")
 
+    # to do - disallow `joins`
     preloaded_clubs = Club.joins(:memberships).preload(:membership).to_a
     assert_no_queries { preloaded_clubs.each(&:membership) }
   end

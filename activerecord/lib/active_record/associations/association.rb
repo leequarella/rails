@@ -243,7 +243,11 @@ module ActiveRecord
         # actually gets built.
         def association_scope
           if klass
-            @association_scope ||= AssociationScope.scope(self)
+            @association_scope ||= if options[:split]
+                                     SplitAssociationScope.scope(self)
+                                   else
+                                     AssociationScope.scope(self)
+                                   end
           end
         end
 
