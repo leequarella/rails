@@ -1530,10 +1530,10 @@ class EagerAssociationTest < ActiveRecord::TestCase
   end
 
   test "preload with invalid argument" do
-    exception = assert_raises(ActiveRecord::AssociationNotFoundError) do
+    exception = assert_raises(ArgumentError) do
       Author.preload(10).to_a
     end
-    assert_match(/Association named '10' was not found on Author; perhaps you misspelled it\?/, exception.message)
+    assert_equal("10 was not recognized for preload", exception.message)
   end
 
   test "associations with extensions are not instance dependent" do
