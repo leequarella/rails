@@ -15,7 +15,8 @@ module ActiveRecord
         [
           ActiveRecord::Relation,
           ActiveRecord::Associations::CollectionProxy,
-          ActiveRecord::AssociationRelation
+          ActiveRecord::AssociationRelation,
+          ActiveRecord::SplitAssociationRelation
         ].each do |klass|
           delegate = Class.new(klass) {
             include ClassSpecificRelation

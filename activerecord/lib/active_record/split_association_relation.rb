@@ -16,6 +16,10 @@ module ActiveRecord
     end
 
     def first(limit = nil)
+      puts 'HIIIIIIIIIIIIIIIIIIIIIIi'
+      puts 'HIIIIIIIIIIIIIIIIIIIIIIi'
+      puts 'HIIIIIIIIIIIIIIIIIIIIIIi'
+      puts 'HIIIIIIIIIIIIIIIIIIIIIIi'
       if limit
         records.limit(limit).first
       else
