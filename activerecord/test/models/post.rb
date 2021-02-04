@@ -88,6 +88,8 @@ class Post < ActiveRecord::Base
   has_many :comments_with_extend_2, extend: [NamedExtension, NamedExtension2], class_name: "Comment", foreign_key: "post_id"
   has_many :comments_2, class_name: "Comment", foreign_key: :post_id
 
+  has_many :comments_2, class_name: "Comment", foreign_key: :post_id
+
   has_many :author_favorites, through: :author
   has_many :author_favorites_with_scope, through: :author, class_name: "AuthorFavoriteWithScope", source: "author_favorites"
   has_many :author_categorizations, through: :author, source: :categorizations

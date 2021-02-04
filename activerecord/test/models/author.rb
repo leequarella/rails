@@ -21,6 +21,36 @@ class Author < ActiveRecord::Base
     end
   end
   has_many :split_comments, through: :posts, split: :true, source: :comments
+
+  has_many :comments_2, through: :posts, source: :comments, foreign_key: :post_id
+  has_many :split_comments_2, through: :posts, split: :true, source: :comments, foreign_key: :post_id
+
+  has_many :ordered_members,
+    -> { order(id: :desc) },
+    through: :comments,
+    source: :resource,
+    source_type: "Member"
+
+  has_many :split_ordered_members,
+    -> { order(id: :desc) },
+    through: :comments,
+    source: :resource,
+    source_type: "Member",
+    split: true
+
+  has_many :ratings, through: :comments
+  has_many :good_ratings,
+    -> { where("ratings.value > 5") },
+    through: :comments,
+    source: :ratings
+
+  has_many :split_ratings, through: :split_comments, split: :true, source: :ratings
+  has_many :split_good_ratings,
+    -> { where("ratings.value > 5") },
+    through: :comments,
+    source: :ratings,
+    split: true
+
   has_many :comments_containing_the_letter_e, through: :posts, source: :comments
   has_many :comments_with_order_and_conditions, -> { order("comments.body").where("comments.body like 'Thank%'") }, through: :posts, source: :comments
   has_many :comments_with_include, -> { includes(:post).where(posts: { type: "Post" }) }, through: :posts, source: :comments
