@@ -3,12 +3,6 @@
 module ActiveRecord
   module Associations
     class SplitAssociationScope < AssociationScope # :nodoc:
-      def self.scope(association)
-        INSTANCE.scope(association)
-      end
-
-      INSTANCE = create
-
       def scope(association)
         # source of the through reflection
         source_reflection = association.reflection
